@@ -11,10 +11,12 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import GlobalFooter from "@/components/GlobalFooter";
-import './index.css';
-import {menus} from "../../../config/menu";
-import {useSelector} from "react-redux";
-import {RootState} from "@/stores";
+import "./index.css";
+import {avatarMenus, menus} from "../../../config/menu";
+import { useSelector } from "react-redux";
+import { RootState } from "@/stores";
+import {getUserMenus ,getAccessibleMenus} from "@/access/menuAccess";
+import ACCESS_ENUMS from "@/access/accessEnums";
 
 interface SearchInputProps {
   key?: string;
@@ -61,10 +63,9 @@ interface Props {
 export default function BasicLayout({ children }: Props) {
   const [pathname] = usePathname();
 
-    const loginUser = useSelector((state: RootState) => state.loginUser);
+  const loginUser = useSelector((state: RootState) => state.loginUser);
 
-
-    return (
+  return (
     <div
       id="bisicLayout"
       style={{
@@ -94,13 +95,7 @@ export default function BasicLayout({ children }: Props) {
             return (
               <Dropdown
                 menu={{
-                  items: [
-                    {
-                      key: "logout",
-                      icon: <LogoutOutlined />,
-                      label: "退出登录",
-                    },
-                  ],
+                  items: getUserMenus(loginUser,avatarMenus)
                 }}
               >
                 {dom}
@@ -132,16 +127,16 @@ export default function BasicLayout({ children }: Props) {
         onMenuHeaderClick={(e) => console.log(e)}
         // 导航栏菜单
         menuDataRender={() => {
-          return menus
+          return getAccessibleMenus(loginUser, menus);
         }}
         // 导航栏样式
         menuItemRender={(item, dom) => (
           <Link href={item.path || "/"}>{dom}</Link>
         )}
         // 渲染底部栏
-          footerRender={()=>{
-            return <GlobalFooter/>
-          }}
+        footerRender={() => {
+          return <GlobalFooter />;
+        }}
       >
         {children}
       </ProLayout>
