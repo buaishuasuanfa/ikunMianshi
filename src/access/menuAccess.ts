@@ -20,14 +20,3 @@ export const getAccessibleMenus = (currentUser:API.LoginUserVO,menuItems = menus
     })
 }
 
-/**
- * 用户菜单栏校验
- * @param currentUser
- * @param menus
- */
-export const getUserMenus = (currentUser:API.LoginUserVO,menus = avatarMenus) =>{
-    if (currentUser.userRole === ACCESS_ENUMS.NOT_LOGIN)
-        return []
-    return menus
-}
-

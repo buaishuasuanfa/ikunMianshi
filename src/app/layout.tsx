@@ -4,7 +4,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import "./globals.css";
 import BasicLayout from "@/layouts/BasicLayout";
 import React, { useCallback, useEffect } from "react";
-import { Provider, useDispatch } from "react-redux";
+import {Provider, useDispatch, useSelector} from "react-redux";
 import store, { AppDispatch } from "@/stores";
 import { getLoginUserUsingGet } from "@/api/userController";
 import { setLoginUser } from "@/stores/loginUserSlice";
@@ -53,7 +53,7 @@ const InitLayout: React.FC<
     const res = await getLoginUserUsingGet();
     if (res.data) {
       // 初始化登录态
-      dispatch(setLoginUser(res.data));
+      // dispatch(setLoginUser(res.data));
     } else {
       //  todo 测试代码
       /*setTimeout(()=>{

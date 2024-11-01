@@ -1,22 +1,20 @@
 "use client";
-import {
-  GithubFilled,
-  LogoutOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { GithubFilled, SearchOutlined } from "@ant-design/icons";
 import { ProLayout } from "@ant-design/pro-components";
-import { Dropdown, Input, theme } from "antd";
+import { Dropdown, Input, message, theme } from "antd";
 import React from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import GlobalFooter from "@/components/GlobalFooter";
 import "./index.css";
-import {avatarMenus, menus} from "../../../config/menu";
-import { useSelector } from "react-redux";
-import { RootState } from "@/stores";
-import {getUserMenus ,getAccessibleMenus} from "@/access/menuAccess";
-import ACCESS_ENUMS from "@/access/accessEnums";
+import { avatarMenus, menus } from "../../../config/menu";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/stores";
+import { getAccessibleMenus } from "@/access/menuAccess";
+import { userLogoutUsingPost } from "@/api/userController";
+import { setLoginUser } from "@/stores/loginUserSlice";
+import { DEFAULT_USER } from "@/constants/user";
 
 interface SearchInputProps {
   key?: string;
@@ -61,9 +59,32 @@ interface Props {
 }
 
 export default function BasicLayout({ children }: Props) {
-  const [pathname] = usePathname();
-
+  const pathname = usePathname();
   const loginUser = useSelector((state: RootState) => state.loginUser);
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+
+  // 用户登出
+  const userLogout = async () => {
+    try {
+      const res = await userLogoutUsingPost();
+      message.success("退出成功");
+      // 保存用户登录态
+      dispatch(setLoginUser(DEFAULT_USER));
+      router.push("/user/login");
+    } catch (e: any) {
+      message.error("操作失败" + e.message);
+    }
+  };
+  // 登录用户操作
+  const onAvatarItemClick = async (event: { key: React.Key }) => {
+    const { key } = event;
+    if (key === "logout") {
+      userLogout();
+    };
+    if (key === 'edit')
+      router.push("/user/edit");
+  }
 
   return (
     <div
@@ -92,10 +113,20 @@ export default function BasicLayout({ children }: Props) {
           size: "small",
           title: loginUser.userName,
           render: (props, dom) => {
+            if (!loginUser.id) {
+              return <div
+                onClick={()=>{
+                  router.push("/user/login");
+                }}
+              >
+                {dom}
+              </div>;
+            }
             return (
               <Dropdown
                 menu={{
-                  items: getUserMenus(loginUser,avatarMenus)
+                  items: avatarMenus,
+                  onClick: onAvatarItemClick
                 }}
               >
                 {dom}

@@ -2,6 +2,10 @@ import { MenuDataItem } from "@ant-design/pro-layout";
 import {CrownOutlined, LogoutOutlined} from "@ant-design/icons";
 import ACCESS_ENUMS from "@/access/accessEnums";
 import path from "node:path";
+import {Button} from "antd";
+import Link from "next/link";
+import {userLogoutUsingPost} from "@/api/userController";
+import {ItemType} from "antd/es/menu/interface";
 
 export const menus = [
   {
@@ -40,9 +44,9 @@ export const avatarMenus = [
   {
     key: "logout",
     icon: <LogoutOutlined />,
-    label: "退出登录",
+    label: '退出登录'
   }
-] as MenuDataItem[]
+] as ItemType[]
 
 export const findAllMenusItemByPath = (
   pathname: string,
