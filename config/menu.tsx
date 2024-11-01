@@ -31,11 +31,27 @@ export const menus = [
         name: "用户管理",
         access: ACCESS_ENUMS.ADMIN,
       },
+      {
+        path: "/admin/questionBank",
+        name: "题库管理",
+        access: ACCESS_ENUMS.ADMIN,
+      },
+      {
+        path: "/admin/question",
+        name: '题目管理',
+        access: ACCESS_ENUMS.ADMIN
+      }
     ],
   },
+
 ] as MenuDataItem[];
 
 export const avatarMenus = [
+  {
+    key: 'self',
+    path: '/user/self',
+    label: '个人中心'
+  },
   {
     key: 'edit',
     path: '/user/edit',
