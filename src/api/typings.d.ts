@@ -5,6 +5,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseListQuestionBankVO_ = {
+    code?: number;
+    data?: QuestionBankVO[];
+    message?: string;
+  };
+
   type BaseResponseLoginUserVO_ = {
     code?: number;
     data?: LoginUserVO;
@@ -117,6 +123,11 @@ declare namespace API {
   };
 
   type getQuestionBankQuestionVOByIdUsingGETParams = {
+    /** id */
+    id?: number;
+  };
+
+  type getQuestionBankQuestionVOByQuestionIdUsingGETParams = {
     /** id */
     id?: number;
   };
@@ -388,7 +399,7 @@ declare namespace API {
     description?: string;
     id?: number;
     picture?: string;
-    questionPage?: PageQuestion_;
+    questionPage?: PageQuestionVO_;
     title?: string;
     updateTime?: string;
     user?: UserVO;
@@ -433,7 +444,7 @@ declare namespace API {
     content?: string;
     createTime?: string;
     id?: number;
-    tagList?: string[];
+    tags?: string[];
     title?: string;
     updateTime?: string;
     user?: UserVO;

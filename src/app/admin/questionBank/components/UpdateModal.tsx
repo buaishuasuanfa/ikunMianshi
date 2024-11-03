@@ -1,7 +1,8 @@
-import { ProColumns, ProTable } from '@ant-design/pro-components';
-import { message, Modal } from 'antd';
-import React from 'react';
-import {updateQuestionBankUsingPost} from "@/api/questionBankController";
+"use client";
+import { ProColumns, ProTable } from "@ant-design/pro-components";
+import { message, Modal } from "antd";
+import React from "react";
+import { updateQuestionBankUsingPost } from "@/api/questionBankController";
 
 interface Props {
   oldData?: API.QuestionBank;
@@ -17,15 +18,15 @@ interface Props {
  * @param fields
  */
 const handleUpdate = async (fields: API.QuestionBankUpdateRequest) => {
-  const hide = message.loading('正在更新');
+  const hide = message.loading("正在更新");
   try {
     await updateQuestionBankUsingPost(fields);
     hide();
-    message.success('更新成功');
+    message.success("更新成功");
     return true;
   } catch (error: any) {
     hide();
-    message.error('更新失败，' + error.message);
+    message.error("更新失败，" + error.message);
     return false;
   }
 };
@@ -45,7 +46,7 @@ const UpdateModal: React.FC<Props> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'更新'}
+      title={"更新"}
       open={visible}
       footer={null}
       onCancel={() => {

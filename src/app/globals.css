@@ -10,3 +10,7 @@ body {
   max-height: 100vh;
 }
 
+.max-width{
+  width: 1100px;
+  margin: 0 auto;
+}

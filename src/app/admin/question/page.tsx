@@ -117,7 +117,13 @@ const QuestionAdminPage: React.FC = () => {
       valueType: "text",
       hideInForm: true,
     },
-
+    {
+      title: "所属题库",
+      dataIndex: "questionBank",
+      valueType: "select",
+      hideInSearch: true,
+      hideInTable: true,
+    },
     {
       title: "创建时间",
       sorter: true,

@@ -53,7 +53,7 @@ const InitLayout: React.FC<
     const res = await getLoginUserUsingGet();
     if (res.data) {
       // 初始化登录态
-      // dispatch(setLoginUser(res.data));
+      dispatch(setLoginUser(res.data));
     } else {
       //  todo 测试代码
       /*setTimeout(()=>{

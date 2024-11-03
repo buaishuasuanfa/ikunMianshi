@@ -17,7 +17,7 @@ export const menus = [
     name: "题目",
   },
   {
-    path: "/banks",
+    path: "/questionBanks",
     name: "题库",
   },
   {
@@ -54,7 +54,7 @@ export const avatarMenus = [
   },
   {
     key: 'edit',
-    path: '/user/edit',
+    path: '/user/update',
     label: '编辑信息'
   },
   {

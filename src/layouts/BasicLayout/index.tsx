@@ -1,7 +1,7 @@
 "use client";
-import { GithubFilled, SearchOutlined } from "@ant-design/icons";
+import { GithubFilled } from "@ant-design/icons";
 import { ProLayout } from "@ant-design/pro-components";
-import { Dropdown, Input, message, theme } from "antd";
+import { Dropdown, message } from "antd";
 import React from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -15,44 +15,7 @@ import { getAccessibleMenus } from "@/access/menuAccess";
 import { userLogoutUsingPost } from "@/api/userController";
 import { setLoginUser } from "@/stores/loginUserSlice";
 import { DEFAULT_USER } from "@/constants/user";
-
-interface SearchInputProps {
-  key?: string;
-}
-
-/**
- * 通用布局
- * @param key
- * @constructor
- */
-const SearchInput = ({ key }: SearchInputProps) => {
-  const { token } = theme.useToken();
-  return (
-    <div
-      key="SearchOutlined"
-      aria-hidden
-      style={{
-        display: "flex",
-        alignItems: "center",
-        marginInlineEnd: 24,
-      }}
-      onMouseDown={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-      }}
-    >
-      <Input
-        style={{
-          borderRadius: 4,
-          marginInlineEnd: 12,
-        }}
-        prefix={<SearchOutlined style={{}} />}
-        placeholder="搜索题目"
-        variant="borderless"
-      />
-    </div>
-  );
-};
+import SearchInput from "@/layouts/BasicLayout/components";
 
 interface Props {
   children: React.ReactNode;
@@ -67,7 +30,7 @@ export default function BasicLayout({ children }: Props) {
   // 用户登出
   const userLogout = async () => {
     try {
-      const res = await userLogoutUsingPost();
+      await userLogoutUsingPost();
       message.success("退出成功");
       // 保存用户登录态
       dispatch(setLoginUser(DEFAULT_USER));
@@ -81,10 +44,14 @@ export default function BasicLayout({ children }: Props) {
     const { key } = event;
     if (key === "logout") {
       userLogout();
-    };
-    if (key === 'edit')
-      router.push("/user/edit");
-  }
+    }
+    if (key === "self") {
+      router.push("/user/self");
+    }
+    if (key === "edit") {
+      router.push("/user/update");
+    }
+  };
 
   return (
     <div
@@ -114,19 +81,21 @@ export default function BasicLayout({ children }: Props) {
           title: loginUser.userName,
           render: (props, dom) => {
             if (!loginUser.id) {
-              return <div
-                onClick={()=>{
-                  router.push("/user/login");
-                }}
-              >
-                {dom}
-              </div>;
+              return (
+                <div
+                  onClick={() => {
+                    router.push("/user/login");
+                  }}
+                >
+                  {dom}
+                </div>
+              );
             }
             return (
               <Dropdown
                 menu={{
                   items: avatarMenus,
-                  onClick: onAvatarItemClick
+                  onClick: onAvatarItemClick,
                 }}
               >
                 {dom}
@@ -136,6 +105,17 @@ export default function BasicLayout({ children }: Props) {
         }}
         actionsRender={(props) => {
           if (props.isMobile) return [];
+          if (pathname === "/questions") {
+            return [
+              <a
+                  key="GithubFilled"
+                  href={"https://github.com/buaishuasuanfa/ikunmianshi"}
+                  target={"_blank"}
+              >
+                <GithubFilled />
+              </a>,
+            ];
+          }
           return [
             <SearchInput key="search" />,
             <a
