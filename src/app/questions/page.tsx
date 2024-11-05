@@ -1,5 +1,5 @@
 "use server";
-import {listQuestionVoByPageUsingPost} from "@/api/questionController";
+import {queryEsQuestionsUsingPost} from "@/api/questionController";
 import QuestionTable from "@/components/QuestionTable";
 import QuestionSearch from "@/app/questions/components/QuestionSearch";
 
@@ -15,8 +15,8 @@ export default async function QuestionsPage({ searchParams }) {
   let total = 0;
   // 服务端渲染，直接请求
   try {
-    const questionBankRes = await listQuestionVoByPageUsingPost({
-      title:searchText,
+    const questionBankRes = await queryEsQuestionsUsingPost({
+      searchText,
       pageSize: 12,
       sortField: "createTime",
       sortOrder: "desc",
@@ -28,7 +28,7 @@ export default async function QuestionsPage({ searchParams }) {
   }
 
   return (
-    <div id="question-page" className="max-width">
+    <div style={{width:'100%'}} id="questionPage" className="max-width">
       <QuestionSearch title={searchText}/>
       <QuestionTable defaultQuestionList={questionList} defaultTotal={total}  defaultSearchParams={{title:searchText}}/>
     </div>

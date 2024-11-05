@@ -46,24 +46,6 @@ export const menus = [
 
 ] as MenuDataItem[];
 
-export const avatarMenus = [
-  {
-    key: 'self',
-    path: '/user/self',
-    label: '个人中心'
-  },
-  {
-    key: 'edit',
-    path: '/user/update',
-    label: '编辑信息'
-  },
-  {
-    key: "logout",
-    icon: <LogoutOutlined />,
-    label: '退出登录'
-  }
-] as ItemType[]
-
 export const findAllMenusItemByPath = (
   pathname: string,
 ): MenuDataItem | null => {

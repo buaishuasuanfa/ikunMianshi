@@ -1,5 +1,5 @@
 "use client";
-import { GithubFilled } from "@ant-design/icons";
+import { GithubFilled, LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { ProLayout } from "@ant-design/pro-components";
 import { Dropdown, message } from "antd";
 import React from "react";
@@ -8,7 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import GlobalFooter from "@/components/GlobalFooter";
 import "./index.css";
-import { avatarMenus, menus } from "../../../config/menu";
+import { menus } from "../../../config/menu";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/stores";
 import { getAccessibleMenus } from "@/access/menuAccess";
@@ -45,8 +45,8 @@ export default function BasicLayout({ children }: Props) {
     if (key === "logout") {
       userLogout();
     }
-    if (key === "self") {
-      router.push("/user/self");
+    if (key === "userCenter") {
+      router.push("/user/userCenter");
     }
     if (key === "edit") {
       router.push("/user/update");
@@ -94,7 +94,22 @@ export default function BasicLayout({ children }: Props) {
             return (
               <Dropdown
                 menu={{
-                  items: avatarMenus,
+                  items: [
+                    {
+                      key: "userCenter",
+                      icon: <UserOutlined />,
+                      label: "个人中心",
+                    },
+                    {
+                      key: "edit",
+                      label: "编辑信息",
+                    },
+                    {
+                      key: "logout",
+                      icon: <LogoutOutlined />,
+                      label: "退出登录",
+                    },
+                  ],
                   onClick: onAvatarItemClick,
                 }}
               >
@@ -108,9 +123,9 @@ export default function BasicLayout({ children }: Props) {
           if (pathname === "/questions") {
             return [
               <a
-                  key="GithubFilled"
-                  href={"https://github.com/buaishuasuanfa/ikunmianshi"}
-                  target={"_blank"}
+                key="GithubFilled"
+                href={"https://github.com/buaishuasuanfa/ikunmianshi"}
+                target={"_blank"}
               >
                 <GithubFilled />
               </a>,

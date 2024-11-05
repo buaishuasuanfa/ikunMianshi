@@ -25,7 +25,7 @@ const UserRegisterPage: React.FC = () => {
       } else {
         message.error("注册失败");
       }
-    } catch (e) {
+    } catch (e:any) {
       message.error("注册失败" + e.message);
     }
   };

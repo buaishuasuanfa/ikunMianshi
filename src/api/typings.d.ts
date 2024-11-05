@@ -5,9 +5,9 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponseListQuestionBankVO_ = {
+  type BaseResponseListInt_ = {
     code?: number;
-    data?: QuestionBankVO[];
+    data?: number[];
     message?: string;
   };
 
@@ -127,11 +127,6 @@ declare namespace API {
     id?: number;
   };
 
-  type getQuestionBankQuestionVOByQuestionIdUsingGETParams = {
-    /** id */
-    id?: number;
-  };
-
   type getQuestionBankVOByIdUsingGETParams = {
     content?: string;
     current?: number;
@@ -155,6 +150,11 @@ declare namespace API {
   type getUserByIdUsingGETParams = {
     /** id */
     id?: number;
+  };
+
+  type getUserSignInUsingPOSTParams = {
+    /** year */
+    year?: number;
   };
 
   type getUserVOByIdUsingGETParams = {
@@ -326,6 +326,11 @@ declare namespace API {
     title?: string;
   };
 
+  type QuestionBankIdsOfQuestion = {
+    questionBankIds?: string[];
+    questionId?: number;
+  };
+
   type QuestionBankQueryRequest = {
     content?: string;
     current?: number;
@@ -434,6 +439,7 @@ declare namespace API {
     answer?: string;
     content?: string;
     id?: number;
+    questionBankIds?: number[];
     tags?: string[];
     title?: string;
     userId?: number;

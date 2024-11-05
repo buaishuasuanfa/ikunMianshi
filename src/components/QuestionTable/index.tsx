@@ -2,7 +2,7 @@
 import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
 import React, { useEffect, useRef, useState } from "react";
-import { listQuestionVoByPageUsingPost } from "@/api/questionController";
+import { queryEsQuestionsUsingPost } from "@/api/questionController";
 import "./index.css";
 import { TagList } from "@/components/TagList";
 import Link from "next/link";
@@ -19,7 +19,7 @@ interface Props {
  * @constructor
  */
 const QuestionTable = (props: Props) => {
-  const { defaultQuestionList, defaultTotal, defaultSearchParams = {} } = props;
+  const { defaultQuestionList, defaultTotal } = props;
   const actionRef = useRef<ActionType>();
   // 默认参数
   const [questionList, setQuestionList] = useState<API.QuestionVO[]>(
@@ -39,9 +39,9 @@ const QuestionTable = (props: Props) => {
     }
 
     const sortField = Object?.keys(sort)?.[0] || "createTime";
-    const sortOrder = sort?.[sortField] || "desc";
+    const sortOrder = sort?.[sortField] || "descend";
 
-    const { data, code } = await listQuestionVoByPageUsingPost({
+    const { data, code } = await queryEsQuestionsUsingPost({
       ...params,
       sortField,
       sortOrder,
@@ -77,7 +77,7 @@ const QuestionTable = (props: Props) => {
       valueType: "text",
       hideInSearch: true,
       render: (_, record) => {
-        return <Link href={`/questions/${record.id}`}>{record.title}</Link>;
+        return <Link href={`/question/${record.id}`}>{record.title}</Link>;
       },
     },
     {

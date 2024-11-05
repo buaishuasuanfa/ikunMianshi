@@ -50,24 +50,6 @@ export async function getQuestionBankQuestionVoByIdUsingGet(
   );
 }
 
-/** getQuestionBankQuestionVOByQuestionId GET /api/questionBankQuestion/getQuestionBanks/vo */
-export async function getQuestionBankQuestionVoByQuestionIdUsingGet(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getQuestionBankQuestionVOByQuestionIdUsingGETParams,
-  options?: { [key: string]: any }
-) {
-  return request<API.BaseResponseListQuestionBankVO_>(
-    "/api/questionBankQuestion/getQuestionBanks/vo",
-    {
-      method: "GET",
-      params: {
-        ...params,
-      },
-      ...(options || {}),
-    }
-  );
-}
-
 /** listQuestionBankQuestionByPage POST /api/questionBankQuestion/list/page */
 export async function listQuestionBankQuestionByPageUsingPost(
   body: API.QuestionBankQuestionQueryRequest,

@@ -1,8 +1,6 @@
 "use client";
 import "./index.css";
 import Search from "antd/es/input/Search";
-import { listQuestionVoByPageUsingPost } from "@/api/questionController";
-import { message } from "antd";
 import { useRouter } from "next/navigation";
 
 interface SearchTitle {
@@ -15,24 +13,17 @@ const QuestionSearch = (searchTitle?: SearchTitle) => {
   // 搜索栏搜索
   const onSearchAndClear = async (value?: string) => {
     if (value) {
-      const res = await listQuestionVoByPageUsingPost({ title: value });
-      if (res.data) {
-        router.replace(`/questions?query=${value}`);
-      } else {
-        message.error("查询失败");
-      }
+      router.replace(`/questions?query=${value}`);
     } else {
-      const res = await listQuestionVoByPageUsingPost({});
-      if (res.data) {
-        router.replace(`/questions`);
-      } else {
-        message.error("查询失败");
-      }
+      router.replace(`/questions`);
     }
   };
 
   return (
-    <div style={{ textAlign: "center", marginBottom: 32 }}>
+    <div
+      className="question-search"
+      style={{ textAlign: "center", marginBottom: 32 }}
+    >
       <Search
         allowClear={true}
         placeholder="搜索题目"

@@ -71,7 +71,7 @@ const InitLayout: React.FC<
     } else {
       doInit();
     }
-  });
+  },[]);
 
   return children;
 };

@@ -10,6 +10,7 @@ import UpdateModal from "@/app/admin/question/components/UpdateModal";
 import "./index.css";
 import {TagList} from "@/components/TagList";
 import MdEditor from "@/components/MdEditor";
+import UpDateQuestionBankOfQuestion from "@/app/admin/question/components/UpdateQuestionBankOfQuestion";
 
 /**
  * 题目管理页面
@@ -21,6 +22,9 @@ const QuestionAdminPage: React.FC = () => {
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   // 是否显示更新窗口
   const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
+  // 是否显示修改所属题库窗口
+  const [updateBankVisible, setUpdateBankVisible] = useState<boolean>(false);
+  const [id, setId] = useState<number>(0);
   const actionRef = useRef<ActionType>();
   // 当前题目点击的数据
   const [currentRow, setCurrentRow] = useState<API.Question>();
@@ -68,7 +72,7 @@ const QuestionAdminPage: React.FC = () => {
       dataIndex: "content",
       valueType: "text",
       hideInSearch: true,
-      width: 240,
+      width: 200,
       renderFormItem: (
         item,
         { fieldProps },
@@ -87,7 +91,7 @@ const QuestionAdminPage: React.FC = () => {
       valueType: "text",
       hideInSearch: true,
       ellipsis: true,
-      width: 340,
+      width: 300,
         renderFormItem: (
             item,
             { fieldProps },
@@ -162,6 +166,7 @@ const QuestionAdminPage: React.FC = () => {
           >
             修改
           </Typography.Link>
+          <UpDateQuestionBankOfQuestion questionId={record.id}></UpDateQuestionBankOfQuestion>
           <Typography.Link type="danger" onClick={() => handleDelete(record)}>
             删除
           </Typography.Link>
