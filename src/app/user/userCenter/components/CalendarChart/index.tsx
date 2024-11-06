@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { getUserSignInUsingPost } from "@/api/userController";
 import EChartsReact from "echarts-for-react";
+import Title from "antd/es/typography/Title";
 
 interface Props {}
 
@@ -15,8 +16,13 @@ interface Props {}
 const CalendarChart = (props: Props) => {
   // 签到日期列表（[1, 200]，表示第 1 和第 200 天有签到记录）
   const [dataList, setDataList] = useState<number[]>([]);
+  const data = new Date
   // 计算图表需要的数据
-  const year = new Date().getFullYear();
+  const year = data.getFullYear();
+
+  const today = data.getFullYear()+"-"+(data.getMonth()+1)+"-"+(data.getDate()<10 ? "0"+data.getDate():""+data.getDate());
+
+  const [todaySign,setTodaySign] = useState<boolean>(false);
 
   // 请求后端获取刷题签到记录
   const fetchDataList = async () => {
@@ -25,11 +31,19 @@ const CalendarChart = (props: Props) => {
     });
     setDataList(res.data || []);
   };
+
   const optionsData = dataList.map((dayOfYear, index) => {
     // 计算日期字符串
     const dateStr = dayjs(`${year}-01-01`)
       .add(dayOfYear - 1, "day")
       .format("YYYY-MM-DD");
+    if (index === dataList.length - 1) {
+      if (!todaySign){
+        if (today === dateStr){
+          setTodaySign(true)
+        }
+      }
+    }
     return [dateStr, 1];
   });
 
@@ -67,7 +81,8 @@ const CalendarChart = (props: Props) => {
 
   return (
     <div className="calendar-chart">
-      <EChartsReact option={options} />
+      <EChartsReact option={options} style={{height:200}}/>
+      {!todaySign && <Title level={3} style={{color:"red",textAlign:"center"}}>今日还没有签到刷题噢~~~</Title>}
     </div>
   );
 };

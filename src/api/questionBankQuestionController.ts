@@ -32,6 +32,24 @@ export async function deleteQuestionBankQuestionUsingPost(
   });
 }
 
+/** editQuestionBankIds POST /api/questionBankQuestion/editBatch/question/questionBankIds */
+export async function editQuestionBankIdsUsingPost(
+  body: API.QuestionBankIdsOfQuestion,
+  options?: { [key: string]: any }
+) {
+  return request<API.BaseResponseBoolean_>(
+    "/api/questionBankQuestion/editBatch/question/questionBankIds",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: body,
+      ...(options || {}),
+    }
+  );
+}
+
 /** getQuestionBankQuestionVOById GET /api/questionBankQuestion/get/vo */
 export async function getQuestionBankQuestionVoByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

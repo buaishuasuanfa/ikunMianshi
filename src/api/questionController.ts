@@ -47,24 +47,6 @@ export async function editQuestionUsingPost(
   });
 }
 
-/** editQuestionBankIds POST /api/question/edit/question/questionBankIds */
-export async function editQuestionBankIdsUsingPost(
-  body: API.QuestionBankIdsOfQuestion,
-  options?: { [key: string]: any }
-) {
-  return request<API.BaseResponseBoolean_>(
-    "/api/question/edit/question/questionBankIds",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: body,
-      ...(options || {}),
-    }
-  );
-}
-
 /** getQuestionVOById GET /api/question/get/vo */
 export async function getQuestionVoByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

@@ -46,10 +46,18 @@ export default function BasicLayout({ children }: Props) {
       userLogout();
     }
     if (key === "userCenter") {
-      router.push("/user/userCenter");
+      if (pathname.startsWith('/user')) {
+        router.push(("/user/userCenter"));
+      }else {
+        router.replace(("/user/userCenter"));
+      }
     }
     if (key === "edit") {
-      router.push("/user/update");
+      if (pathname.startsWith('/user')) {
+        router.push(("/user/update"));
+      }else {
+        router.replace(("/user/update"));
+      }
     }
   };
 

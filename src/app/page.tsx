@@ -37,13 +37,13 @@ export default async function HomePage() {
     <div id="homePage" className='max-width'>
       <Flex justify={"space-between"} align={"center"}>
         <Title level={3}>最新题库</Title>
-        <Link href={"/questionBanks"}>查看更多</Link>
+        <Link href={"/questionBanks" } target="_blank">查看更多</Link>
       </Flex>
       <QuestionBankList questionBankList={questionBankList}/>
       <Divider />
       <Flex justify={"space-between"} align={"center"}>
         <Title level={3}>最新题目</Title>
-        <Link href={"/questions"}>查看更多</Link>
+        <Link href={"/questions"} target="_blank">查看更多</Link>
       </Flex>
       <QuestionList questionsList={questionList}/>
     </div>

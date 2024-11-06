@@ -164,6 +164,7 @@ declare namespace API {
 
   type LoginUserVO = {
     createTime?: string;
+    description?: string;
     id?: number;
     updateTime?: string;
     userAvatar?: string;
@@ -327,7 +328,7 @@ declare namespace API {
   };
 
   type QuestionBankIdsOfQuestion = {
-    questionBankIds?: string[];
+    questionBankIds?: Record<string, any>;
     questionId?: number;
   };
 
@@ -457,12 +458,19 @@ declare namespace API {
     userId?: number;
   };
 
+  type updateMyUserUsingPOSTParams = {
+    description?: string;
+    userName?: string;
+    userProfile?: string;
+  };
+
   type uploadFileUsingPOSTParams = {
     biz?: string;
   };
 
   type User = {
     createTime?: string;
+    description?: string;
     editTime?: string;
     id?: number;
     isDelete?: number;
@@ -513,15 +521,9 @@ declare namespace API {
     userPassword?: string;
   };
 
-  type UserUpdateMyRequest = {
-    userAvatar?: string;
-    userName?: string;
-    userProfile?: string;
-  };
-
   type UserUpdateRequest = {
+    description?: string;
     id?: number;
-    userAvatar?: string;
     userName?: string;
     userProfile?: string;
     userRole?: string;
@@ -529,6 +531,7 @@ declare namespace API {
 
   type UserVO = {
     createTime?: string;
+    description?: string;
     id?: number;
     userAvatar?: string;
     userName?: string;

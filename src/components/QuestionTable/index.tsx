@@ -60,6 +60,7 @@ const QuestionTable = (props: Props) => {
   };
 
   useEffect(() => {
+    setTotal(defaultTotal);
     setQuestionList(defaultQuestionList);
   }, [defaultQuestionList]);
   /**
